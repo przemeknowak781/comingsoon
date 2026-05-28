@@ -1,0 +1,486 @@
+:root {
+  --navy: #080b13;
+  --navy-soft: rgba(12, 16, 28, 0.72);
+  --ink: #f3efed;
+  --ink-muted: rgba(243, 239, 237, 0.72);
+  --line: rgba(243, 239, 237, 0.16);
+  --orange: #ff6d3a;
+  --orange-soft: #ffb077;
+  --edge: clamp(20px, 5.6vw, 92px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--navy);
+  font-family: "Outfit", "Inter", "Avenir Next", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-rendering: geometricPrecision;
+}
+
+body {
+  min-width: 320px;
+}
+
+.coming-soon {
+  position: relative;
+  isolation: isolate;
+  width: 100vw;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.scene,
+.scene::before,
+.scene::after,
+.scene__photo,
+.scene__sun,
+.scene__stars,
+.scene__overlay,
+.scene__mountains,
+.scene__aurora {
+  position: absolute;
+  inset: 0;
+}
+
+.scene {
+  z-index: -2;
+  overflow: hidden;
+}
+
+.scene__photo {
+  background-image: url("assets/background.webp");
+  background-position: 55% 50%;
+  background-size: cover;
+  filter: saturate(1.16) contrast(1.06) brightness(1.08);
+  transform: scale(1.045);
+  animation: breathe 28s ease-in-out infinite alternate;
+}
+
+.scene__sun {
+  z-index: 3;
+  top: auto;
+  right: auto;
+  bottom: -24vh;
+  left: -18vw;
+  width: min(96vw, 1240px);
+  height: min(84vh, 860px);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 43% 42%, rgba(255, 205, 154, 0.92), rgba(255, 128, 65, 0.68) 28%, rgba(255, 96, 38, 0.34) 54%, rgba(255, 96, 38, 0.08) 76%, transparent 86%);
+  filter: blur(28px);
+  mix-blend-mode: screen;
+  opacity: 0.95;
+  transform-origin: 42% 50%;
+  animation: sunBreathe 7.5s ease-in-out infinite alternate;
+}
+
+.scene::before {
+  content: "";
+  z-index: 2;
+  background:
+    radial-gradient(820px 560px at 13% 66%, rgba(255, 111, 58, 0.58), rgba(255, 128, 65, 0.2) 46%, transparent 72%),
+    radial-gradient(680px 430px at 37% 62%, rgba(255, 176, 119, 0.18), transparent 70%),
+    linear-gradient(90deg, rgba(8, 11, 19, 0.64), rgba(8, 11, 19, 0.24) 42%, rgba(8, 11, 19, 0.04) 68%, transparent 100%),
+    linear-gradient(180deg, rgba(8, 11, 19, 0.72), rgba(8, 11, 19, 0.12) 42%, rgba(8, 11, 19, 0.42));
+}
+
+.scene::after {
+  content: "";
+  z-index: 7;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(8, 11, 19, 0.2), transparent 24%, rgba(8, 11, 19, 0.24) 100%),
+    radial-gradient(circle at 16% 58%, rgba(8, 11, 19, 0.1), transparent 46%),
+    linear-gradient(90deg, rgba(8, 11, 19, 0.14), transparent 46%);
+}
+
+.scene__aurora {
+  z-index: 4;
+  width: 54vw;
+  height: 38vh;
+  filter: blur(34px);
+  opacity: 0.36;
+  mix-blend-mode: screen;
+  border-radius: 999px;
+}
+
+.scene__aurora--one {
+  top: 46vh;
+  left: -18vw;
+  background: rgba(255, 97, 44, 0.58);
+  animation: driftOne 16s ease-in-out infinite alternate;
+}
+
+.scene__aurora--two {
+  top: 6vh;
+  right: -22vw;
+  background: rgba(100, 142, 180, 0.34);
+  animation: driftTwo 20s ease-in-out infinite alternate;
+}
+
+.scene__stars {
+  z-index: 5;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, #000 0 50%, transparent 78%);
+  transform: translate3d(0, 0, 0);
+  animation: starsDrift 24s ease-in-out infinite alternate;
+}
+
+.scene__stars span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(2px * var(--s));
+  height: calc(2px * var(--s));
+  border-radius: 50%;
+  background: rgba(243, 239, 237, var(--a));
+  box-shadow: 0 0 calc(8px * var(--s)) rgba(255, 176, 119, calc(var(--a) * 0.7));
+  opacity: calc(var(--a) * 0.52);
+  transform: translate(-50%, -50%) scale(0.86);
+  animation: starPulse var(--d) ease-in-out var(--delay) infinite;
+}
+
+.scene__overlay {
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.28;
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 48%, rgba(0, 0, 0, 0.5) 64%, transparent 82%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 48%, rgba(0, 0, 0, 0.5) 64%, transparent 82%);
+  animation: overlayShift 26s ease-in-out infinite alternate;
+}
+
+.scene__mountains {
+  z-index: 7;
+  inset: auto auto clamp(-148px, -13.2vh, -74px) 50%;
+  width: max(100vw, 1443px);
+  height: auto;
+  max-width: none;
+  transform: translate3d(-50%, 0, 0);
+  object-position: bottom center;
+  opacity: 0.98;
+  filter: saturate(1.12) contrast(1.06) brightness(1.08) drop-shadow(0 -28px 58px rgba(8, 11, 19, 0.34));
+  animation: mountainFloat 14s ease-in-out infinite alternate;
+}
+
+.topbar {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 180px 1fr 180px;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  padding: clamp(22px, 4vw, 46px) var(--edge) 0;
+}
+
+.brand {
+  display: inline-flex;
+  width: clamp(108px, 10vw, 148px);
+  height: clamp(40px, 4.5vw, 54px);
+  color: var(--ink);
+}
+
+.brand__logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  filter: brightness(0) invert(1);
+}
+
+.status {
+  justify-self: center;
+  margin: 0;
+  color: rgba(243, 239, 237, 0.82);
+  font: 500 clamp(13px, 1.2vw, 17px) / 1.1 "Montserrat", system-ui, sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.hero {
+  position: absolute;
+  z-index: 10;
+  left: clamp(26px, 18.9vw, 270px);
+  top: 23.2vh;
+  width: min(720px, calc(100vw - 52px));
+}
+
+.eyebrow {
+  margin: 0 0 22px;
+  color: rgba(255, 188, 140, 0.72);
+  font: 400 clamp(11px, 0.85vw, 13px) / 1.1 "Montserrat", system-ui, sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 720px;
+  margin: 0;
+  color: rgba(240, 235, 233, 0.8);
+  font: 500 clamp(30px, 2.9vw, 54px) / 1.06 "Urbanist", system-ui, sans-serif;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+h1 span {
+  display: block;
+}
+
+.subcopy {
+  max-width: 560px;
+  margin: 28px 0 0;
+  color: rgba(240, 235, 233, 0.8);
+  font: 400 clamp(15px, 1.1vw, 18px) / 1.5 "Outfit", system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+@keyframes breathe {
+  from {
+    transform: scale(1.045) translate3d(-0.18%, -0.14%, 0);
+  }
+
+  to {
+    transform: scale(1.06) translate3d(0.24%, 0.18%, 0);
+  }
+}
+
+@keyframes driftOne {
+  from {
+    transform: translate3d(0, 0, 0) rotate(-8deg);
+  }
+
+  to {
+    transform: translate3d(10vw, -5vh, 0) rotate(5deg);
+  }
+}
+
+@keyframes sunBreathe {
+  from {
+    opacity: 0.72;
+    transform: translate3d(-1.5vw, 1.8vh, 0) scale(0.96);
+  }
+
+  48% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.92;
+    transform: translate3d(2.4vw, -1.2vh, 0) scale(1.18);
+  }
+}
+
+@keyframes driftTwo {
+  from {
+    transform: translate3d(0, 0, 0) rotate(8deg);
+  }
+
+  to {
+    transform: translate3d(-8vw, 6vh, 0) rotate(-6deg);
+  }
+}
+
+@keyframes starsDrift {
+  from {
+    transform: translate3d(-0.55vw, -0.32vh, 0);
+  }
+
+  to {
+    transform: translate3d(0.68vw, 0.42vh, 0);
+  }
+}
+
+@keyframes starPulse {
+  0%, 100% {
+    opacity: calc(var(--a) * 0.24);
+    transform: translate(-50%, -50%) scale(0.72);
+  }
+
+  34% {
+    opacity: calc(var(--a) * 0.72);
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  53% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.42);
+  }
+
+  76% {
+    opacity: calc(var(--a) * 0.16);
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+}
+
+@keyframes overlayShift {
+  from {
+    transform: translate3d(-1.5%, -1%, 0) scale(1.03);
+  }
+
+  to {
+    transform: translate3d(1.5%, 1%, 0) scale(1.06);
+  }
+}
+
+@keyframes mountainFloat {
+  from {
+    transform: translate3d(-50%, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(-50%, 1.2vh, 0) scale(1.012);
+  }
+}
+
+@media (max-width: 860px) {
+  .coming-soon {
+    min-height: 520px;
+  }
+
+  .scene__photo {
+    background-position: 63% 50%;
+  }
+
+  .scene::before {
+    background:
+      radial-gradient(620px 480px at 6% 68%, rgba(255, 111, 58, 0.58), rgba(255, 128, 65, 0.2) 48%, transparent 74%),
+      radial-gradient(430px 320px at 44% 60%, rgba(255, 176, 119, 0.16), transparent 72%),
+      linear-gradient(90deg, rgba(8, 11, 19, 0.64), rgba(8, 11, 19, 0.2) 58%, transparent 100%),
+      linear-gradient(180deg, rgba(8, 11, 19, 0.72), rgba(8, 11, 19, 0.1) 48%, rgba(8, 11, 19, 0.42));
+  }
+
+  .scene__sun {
+    bottom: -18vh;
+    left: -48vw;
+    width: 152vw;
+    height: 66vh;
+  }
+
+  .topbar {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    gap: 18px;
+    padding-top: 24px;
+  }
+
+  .brand {
+    width: 104px;
+    height: 38px;
+  }
+
+  .status {
+    position: absolute;
+    top: 34px;
+    left: 50%;
+    width: min(44vw, 15.5em);
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .hero {
+    left: var(--edge);
+    top: 28vh;
+    width: calc(100vw - (var(--edge) * 2));
+  }
+
+  h1 {
+    max-width: 100%;
+    font-size: clamp(32px, 9.6vw, 46px);
+    line-height: 1.04;
+  }
+
+  .scene__mountains {
+    bottom: clamp(-108px, -12vh, -62px);
+    width: max(184vw, 1060px);
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: 520px) {
+  .coming-soon {
+    min-height: 600px;
+  }
+
+  .topbar {
+    align-items: start;
+  }
+
+  .status {
+    padding-top: 8px;
+    top: 24px;
+    width: min(40vw, 12.5em);
+    padding-top: 0;
+    font-size: 0.62rem;
+    line-height: 1.3;
+  }
+
+  .hero {
+    top: 27vh;
+  }
+
+  .scene__sun {
+    bottom: -14vh;
+    left: -68vw;
+    width: 178vw;
+    height: 58vh;
+    filter: blur(23px);
+  }
+
+  .eyebrow {
+    max-width: 21em;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    max-width: 100%;
+  }
+
+  .subcopy {
+    max-width: 18em;
+  }
+}
+
+@media (max-height: 620px) and (min-width: 700px) {
+  .coming-soon {
+    min-height: 460px;
+  }
+
+  .hero {
+    top: 21vh;
+  }
+
+  h1 {
+    font-size: clamp(30px, 2.9vw, 54px);
+  }
+
+  .scene__mountains {
+    bottom: clamp(-132px, -17vh, -82px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
