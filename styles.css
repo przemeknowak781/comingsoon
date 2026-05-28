@@ -76,7 +76,7 @@ body {
   height: min(84vh, 860px);
   border-radius: 999px;
   background:
-    radial-gradient(circle at 43% 42%, rgba(255, 205, 154, 0.92), rgba(255, 128, 65, 0.68) 28%, rgba(255, 96, 38, 0.34) 54%, rgba(255, 96, 38, 0.08) 76%, transparent 86%);
+    radial-gradient(circle at 43% 42%, rgba(255, 132, 86, 1), rgba(238, 76, 42, 0.96) 30%, rgba(196, 38, 21, 0.62) 56%, rgba(186, 34, 18, 0.24) 76%, transparent 86%);
   filter: blur(28px);
   mix-blend-mode: screen;
   opacity: 0.95;
@@ -88,10 +88,10 @@ body {
   content: "";
   z-index: 2;
   background:
-    radial-gradient(820px 560px at 13% 66%, rgba(255, 111, 58, 0.58), rgba(255, 128, 65, 0.2) 46%, transparent 72%),
-    radial-gradient(680px 430px at 37% 62%, rgba(255, 176, 119, 0.18), transparent 70%),
-    linear-gradient(90deg, rgba(8, 11, 19, 0.64), rgba(8, 11, 19, 0.24) 42%, rgba(8, 11, 19, 0.04) 68%, transparent 100%),
-    linear-gradient(180deg, rgba(8, 11, 19, 0.72), rgba(8, 11, 19, 0.12) 42%, rgba(8, 11, 19, 0.42));
+    radial-gradient(860px 580px at 13% 66%, rgba(238, 76, 42, 0.94), rgba(246, 116, 70, 0.56) 46%, transparent 73%),
+    radial-gradient(700px 440px at 37% 62%, rgba(255, 132, 86, 0.42), transparent 70%),
+    linear-gradient(90deg, rgba(8, 11, 19, 0.64), rgba(8, 11, 19, 0.24) 42%, rgba(8, 11, 19, 0.05) 68%, transparent 100%),
+    linear-gradient(180deg, rgba(8, 11, 19, 0.7), rgba(8, 11, 19, 0.12) 42%, rgba(8, 11, 19, 0.42));
 }
 
 .scene::after {
@@ -155,7 +155,8 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.28;
+  opacity: 0.34;
+  filter: sepia(0.28) saturate(2.55) hue-rotate(-32deg) brightness(1.03);
   mix-blend-mode: screen;
   -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 48%, rgba(0, 0, 0, 0.5) 64%, transparent 82%);
   mask-image: linear-gradient(90deg, #000 0%, #000 48%, rgba(0, 0, 0, 0.5) 64%, transparent 82%);
@@ -356,10 +357,10 @@ h1 span {
 
   .scene::before {
     background:
-      radial-gradient(620px 480px at 6% 68%, rgba(255, 111, 58, 0.58), rgba(255, 128, 65, 0.2) 48%, transparent 74%),
-      radial-gradient(430px 320px at 44% 60%, rgba(255, 176, 119, 0.16), transparent 72%),
+      radial-gradient(640px 500px at 6% 68%, rgba(238, 76, 42, 0.92), rgba(246, 116, 70, 0.54) 48%, transparent 74%),
+      radial-gradient(450px 330px at 44% 60%, rgba(255, 132, 86, 0.4), transparent 72%),
       linear-gradient(90deg, rgba(8, 11, 19, 0.64), rgba(8, 11, 19, 0.2) 58%, transparent 100%),
-      linear-gradient(180deg, rgba(8, 11, 19, 0.72), rgba(8, 11, 19, 0.1) 48%, rgba(8, 11, 19, 0.42));
+      linear-gradient(180deg, rgba(8, 11, 19, 0.7), rgba(8, 11, 19, 0.1) 48%, rgba(8, 11, 19, 0.42));
   }
 
   .scene__sun {
