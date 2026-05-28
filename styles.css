@@ -248,6 +248,10 @@ h1 span {
   letter-spacing: 0;
 }
 
+.subcopy span {
+  display: inline;
+}
+
 @keyframes breathe {
   from {
     transform: scale(1.045) translate3d(-0.18%, -0.14%, 0);
@@ -455,6 +459,10 @@ h1 span {
 
   .subcopy {
     max-width: 18em;
+  }
+
+  .subcopy span {
+    display: block;
   }
 }
 
